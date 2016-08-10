@@ -1,0 +1,44 @@
+name:                cpp2hs
+version:             0.1.0.0
+synopsis:            Proof of concept for C++ in Haksell
+description:         Please see README.md
+homepage:            https://github.com/githubuser/cpp2hs#readme
+license:             BSD3
+license-file:        LICENSE
+author:              Jos Kusiek
+maintainer:          jos.kusiek@tu-dortmund.de
+copyright:           2016 Jos Kusiek
+category:            Foreign
+build-type:          Custom
+extra-source-files:  cppbits/Point.h
+                     cppbits/Point.cpp
+                     libPoint.so
+                     libPoint.dylib
+cabal-version:       >=1.10
+
+library
+  hs-source-dirs:      src
+  exposed-modules:     Foreign.Cpp.Point
+  build-depends:       base >= 4.7 && < 5
+                     , directory
+  default-language:    Haskell2010
+  extra-libraries:     Point
+  other-extensions:    ForeignFunctionInterface
+
+test-suite point-test
+  type:                exitcode-stdio-1.0
+  hs-source-dirs:      test
+  main-is:             PointSpec.hs
+  build-depends:       base
+                     , cpp2hs
+                     , tasty-th
+                     , tasty
+                     , tasty-quickcheck
+                     , tasty-hunit
+  ghc-options:         -threaded -rtsopts -with-rtsopts=-N
+  default-language:    Haskell2010
+  other-extensions:    TemplateHaskell
+
+source-repository head
+  type:     git
+  location: https://github.com/jokusi/cpp2hs
